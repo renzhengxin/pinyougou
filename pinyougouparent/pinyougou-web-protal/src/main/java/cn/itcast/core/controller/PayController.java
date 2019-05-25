@@ -27,44 +27,31 @@ public class PayController {
 
 
     @RequestMapping("/queryPayStatus")
-    public Result queryPayStatus(String out_trade_no){
+    public Result queryPayStatus(String out_trade_no) {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         try {
-            int i=0;
+            int start = 0;
             while (true) {
-                Map<String, String> resultMap = payService.queryPayStatus(out_trade_no,name);
+                Map<String, String> resultMap = payService.queryPayStatus(out_trade_no, name);
                 if ("NOTPAY".equals(resultMap.get("trade_state"))) {
-                    //支付失败
-
-                    i++;
-                    if (i>30){
-                    //关闭订单API
-                    payService.closeOrder(out_trade_no);
-                    return new Result(false,"二维码超时");
+                    //未支付
+                    //每隔3秒查询循环问一次，直至超过5分钟,则关闭订单
+                    Thread.sleep(3000);
+                    start++;
+                    if (start > 100) {//超过5分钟
+                        ////调用 关闭订单API  同学完成
+                        Map<String, String> map = payService.closeOrder(out_trade_no);
+                        return new Result(false, map.get("err_code_des"));
+                    } else if (null == resultMap) {
+                        return new Result(false, "支付失败");
+                    } else {
+                        return new Result(true, "支付成功");
                     }
-
-
-
-                }else if(null==resultMap){
-                    return new Result(false,"支付失败");
-                } else {
-
-                    return new Result(true, "支付成功");
                 }
-
-                Thread.sleep(10000);//10秒执行一次
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result(false,"支付失败");
+            return new Result(false, "支付失败");
         }
     }
-
-
-    //url:closeorder
-
-
-
-
-
 }

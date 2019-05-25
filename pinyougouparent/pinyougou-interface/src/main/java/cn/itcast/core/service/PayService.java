@@ -7,5 +7,5 @@ public interface PayService {
 
     Map<String,String> queryPayStatus(String out_trade_no,String name);
 
-    void closeOrder(String out_trade_no);
+    Map<String, String> closeOrder(String out_trade_no);
 }

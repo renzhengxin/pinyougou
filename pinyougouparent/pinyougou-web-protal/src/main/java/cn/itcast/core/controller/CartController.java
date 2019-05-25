@@ -30,38 +30,22 @@ public class CartController {
     @RequestMapping("/addGoodsToCartList")
     @CrossOrigin(origins="http://localhost:9003",allowCredentials="true")
     public Result addGoodsToCartList(Long itemId, Integer num, HttpServletRequest request,HttpServletResponse response){
-//        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9003");
-//        response.setHeader("Access-Control-Allow-Credentials", "true");
-
-
         try {
 
-            boolean loginFlag=false;
-
-
-
+        boolean loginFlag=false;
         //未登录状态下
         List<Cart> cartList=null;
-
         Cookie[] cookies = request.getCookies();
-
         if (cookies!=null&&cookies.length>0){
-
             for (Cookie cookie : cookies) {
                 if ("CART".equals(cookie.getName())){
-
                     cartList=JSON.parseArray(cookie.getValue(), Cart.class);
                     loginFlag=true;
-
                 }
             }
-
         }
-
         if (cartList==null){
-
             cartList=new ArrayList<>();
-
         }
         //新购物车
         Cart newCart=new Cart();

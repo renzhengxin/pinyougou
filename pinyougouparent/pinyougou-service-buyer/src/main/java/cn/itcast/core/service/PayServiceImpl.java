@@ -218,7 +218,7 @@ public class PayServiceImpl implements PayService{
 
 
     @Override
-    public void closeOrder(String out_trade_no) {
+    public Map<String, String> closeOrder(String out_trade_no) {
         //https://api.mch.weixin.qq.com/pay/closeorder
 
         String url="https://api.mch.weixin.qq.com/pay/closeorder";
@@ -261,19 +261,22 @@ public class PayServiceImpl implements PayService{
             Map<String, String> resultMap = WXPayUtil.xmlToMap(content);
 
             //查看结果
-            Set<Map.Entry<String, String>> entrySet = resultMap.entrySet();
-            for (Map.Entry<String, String> entry : entrySet) {
-                System.out.println(entry.getKey()+entry.getValue());
+//            Set<Map.Entry<String, String>> entrySet = resultMap.entrySet();
+//            for (Map.Entry<String, String> entry : entrySet) {
+//                System.out.println(entry.getKey()+entry.getValue());
+//            }
+            if ("SUCCESS".equals(resultMap.get("return_code"))) {//通话连接成功
+                if ("FAIL".equals(resultMap.get("result_code"))) {
+                    //订单结果失败
+                    //关闭订单,从缓存清除
+                    //根据out_trade_no查询到支付订单日志，并从缓存清除
+                    return resultMap;
+                }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
+        return null;
     }
-
-
 }
