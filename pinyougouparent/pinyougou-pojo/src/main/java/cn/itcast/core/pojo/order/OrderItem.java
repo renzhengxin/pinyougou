@@ -1,5 +1,7 @@
 package cn.itcast.core.pojo.order;
 
+import cn.itcast.core.pojo.item.Item;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -11,6 +13,16 @@ public class OrderItem implements Serializable {
      * 商品id
      */
     private Long itemId;
+
+    private Item item;
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
 
     /**
      * SPU_ID
