@@ -10,9 +10,18 @@
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
+
+	<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+
+	<script type="text/javascript" src="js/base.js"></script>
+	<script type="text/javascript" src="js/controller/userController.js"></script>
+	<script type="text/javascript" src="js/controller/indexController.js"></script>
+	<script type="text/javascript" src="js/service/userService.js"></script>
+	<script type="text/javascript" src="js/service/loginService.js"></script>
+
 </head>
 
-<body>
+<body ng-app="pinyougou" ng-controller="userController" ng-init="findUser()">
     <!-- 头部栏位 -->
     <!--页面顶部-->
 <div id="nav-bottom">
@@ -158,16 +167,16 @@ $(function(){
         </script>
 </body>
     <!--header-->
-    <div id="account">
+    <div id="account" >
         <div class="py-container">
             <div class="yui3-g home">
                 <!--左侧列表-->
-                <div class="yui3-u-1-6 list">
+                <div class="yui3-u-1-6 list" ng-app="pinyougou" ng-controller="indexController" ng-init="showName()">
 
                     <div class="person-info">
                         <div class="person-photo"><img src="img/_/photo.png" alt=""></div>
                         <div class="person-account">
-                            <span class="name">Michelle</span>
+                            <span class="name">{{loginName}}</span>
                             <span class="safe">账户安全</span>
                         </div>
                         <div class="clearfix"></div>
@@ -198,7 +207,7 @@ $(function(){
                     </div>
                 </div>
                 <!--右侧主内容-->
-                <div class="yui3-u-5-6">
+                <div class="yui3-u-5-6" >
                     <div class="body userInfo">
                         <ul class="sui-nav nav-tabs nav-large nav-primary ">
                             <li class="active"><a href="#one" data-toggle="tab">基本资料</a></li>
@@ -210,63 +219,44 @@ $(function(){
                                     <div class="control-group">
                                         <label for="inputName" class="control-label">昵称：</label>
                                         <div class="controls">
-                                            <input type="text" id="inputName" name="email" placeholder="昵称">
+                                            <input type="text" id="inputName" ng-model="user.nickName" value="" name="email" placeholder="昵称">
                                         </div>
                                     </div>
+									<div class="control-group">
+										<label for="inputPassword" class="control-label">会员等级：</label>
+										<div class="controls">
+											<span>{{user.userLevel}}</span>
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="inputPassword" class="control-label">账户余额：</label>
+										<div class="controls">
+											<span>${{user.accountBalance}}</span>
+										</div>
+									</div>
                                     <div class="control-group">
                                         <label for="inputGender" class="control-label">性别：</label>
                                         <div class="controls">
-                                            <label data-toggle="radio" class="radio-pretty inline">
-                                            <input type="radio" name="gender" value="1"><span>男</span>
-                                        </label>
-                                            <label data-toggle="radio" class="radio-pretty inline">
-                                            <input type="radio" name="gender" value="2"><span>女</span>
-                                        </label>
+                                            <input type="text" name="gender" value={{user.sex==1?'男':'女'}}>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label for="inputPassword" class="control-label">生日：</label>
                                         <div class="controls">
-                                            <select id="select_year2" rel="1990"></select>年
-                                            <select id="select_month2" rel="4"></select>月
-                                            <select id="select_day2" rel="3"></select>日
+											<input type="text" name="gender" value={{user.birthday}}>
                                         </div>
                                     </div>
+									<div class="control-group">
+										<label for="inputPassword" class="control-label">最后登录时间：</label>
+										<div class="controls">
+											<span>{{user.lastLoginTime}}</span>
+										</div>
+									</div>
 
-
-                                    <div class="control-group">
-                                        <label for="inputPassword" class="control-label">所在地：</label>
-                                        <div class="controls">
-                                            <div data-toggle="distpicker">
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="province1"></select>
-                                                </div>
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="city1"></select>
-                                                </div>
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="district1"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label for="inputJob" class="control-label">职业：</label>
-                                        <div class="controls"><span class="sui-dropdown dropdown-bordered select"><span class="dropdown-inner"><a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                                <input name="job" type="hidden" data-rules="required"><i class="caret"></i><span>请选择</span></a>
-                                            <ul id="menu4" role="menu" aria-labelledby="drop4" class="sui-dropdown-menu">
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="bj">程序员</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="sb">产品经理</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="sb">UI设计师</a></li>
-                                            </ul>
-                                            </span>
-                                            </span>
-                                        </div>
-                                    </div>
                                     <div class="control-group">
                                         <label for="sanwei" class="control-label"></label>
                                         <div class="controls">
-                                            <button type="submit" class="sui-btn btn-primary">立即注册</button>
+                                            <button type="submit" class="sui-btn btn-primary">保存</button>
                                         </div>
                                     </div>
                                 </form>

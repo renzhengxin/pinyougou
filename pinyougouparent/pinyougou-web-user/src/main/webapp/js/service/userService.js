@@ -2,8 +2,8 @@
 app.service('userService',function($http){
 	    	
 	//读取列表数据绑定到表单中
-	this.findAll=function(){
-		return $http.get('../user/findAll.do');		
+	this.findUser=function(){
+		return $http.get('../user/findUser.do');
 	}
 	//分页 
 	this.findPage=function(page,rows){
@@ -18,8 +18,8 @@ app.service('userService',function($http){
 		return  $http.post('../user/add.do?smscode='+smscode,entity );
 	}
 	//修改 
-	this.update=function(entity){
-		return  $http.post('../user/update.do',entity );
+	this.update=function(user){
+		return  $http.post('../user/update.do',user );
 	}
 	//删除
 	this.dele=function(ids){

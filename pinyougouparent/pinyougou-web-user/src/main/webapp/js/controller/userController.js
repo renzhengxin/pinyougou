@@ -33,5 +33,21 @@ app.controller('userController' ,function($scope,$controller   ,userService){
 			}
 		);		
 	}
+
+	$scope.findUser=function () {
+		userService.findUser().success(
+			function (response) {
+				$scope.user=response;
+            }
+		)
+    }
+
+    $scope.save=function (user) {
+        userService.save(user).success(
+            function (response) {
+                alert(response.message);
+            }
+        )
+    }
 	
 });	
