@@ -11,6 +11,16 @@ public class Order implements Serializable {
      */
     private Long orderId;
 
+    private String sellerName;
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+    }
+
     private List<OrderItem> orderItemList;
 
     public List<OrderItem> getOrderItemList() {
