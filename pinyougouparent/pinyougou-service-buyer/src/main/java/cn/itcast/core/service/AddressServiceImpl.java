@@ -83,4 +83,9 @@ public class AddressServiceImpl implements AddressService {
         address.setUserId(name);
         addressDao.insert(address);
     }
+
+    @Override
+    public void delete(Long id) {
+        addressDao.deleteByPrimaryKey(id);
+    }
 }

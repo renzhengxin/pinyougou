@@ -17,7 +17,7 @@ app.controller('addressController', function ($scope, addressService) {
     }
 
     // 查询二级分类列表:
-    $scope.$watch("entity.address.provinceId", function (newValue, oldValue) {
+    $scope.$watch("address.provinceId", function (newValue, oldValue) {
         $scope.areasList = [];
         addressService.findCities(newValue).success(function (response) {
             $scope.citiesList = response;
@@ -25,7 +25,7 @@ app.controller('addressController', function ($scope, addressService) {
     });
 
     // 查询三级分类列表:
-    $scope.$watch("entity.address.cityId", function (newValue, oldValue) {
+    $scope.$watch("address.cityId", function (newValue, oldValue) {
 
         addressService.findAreas(newValue).success(function (response) {
             $scope.areasList = response;
@@ -44,5 +44,18 @@ app.controller('addressController', function ($scope, addressService) {
                 }
             }
         );
+    }
+
+    $scope.del = function (id) {
+        addressService.delete(id).success(
+            function (response) {
+                if (response.flag) {
+                    //重新查询
+                    alert(response.message);
+                    location.reload();
+                } else {
+                    alert(response.message);
+                }
+            });
     }
 });

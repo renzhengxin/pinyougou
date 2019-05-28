@@ -17,4 +17,6 @@ public interface AddressService {
     List<Areas> findAreas(Long cityId);
 
     void add(Address address,String name);
+
+    void delete(Long id);
 }

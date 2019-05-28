@@ -54,4 +54,15 @@ public class AddressController {
             return new Result(false,"失败");
         }
     }
+
+    @RequestMapping("/delete")
+    public Result delete(Long id){
+        try {
+            addressService.delete(id);
+            return new Result(true,"成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"失败");
+        }
+    }
 }

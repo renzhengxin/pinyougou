@@ -218,7 +218,7 @@ $(function(){
                                         <td>{{address.mobile}}</td>
                                         <td>
                                             <a href="#">编辑</a>
-                                            <a href="#">删除</a>
+                                            <a href="#" ng-click="del(address.id)">删除</a>
 											<span class="base" ng-if="address.isDefault=='1'">默认地址</span>
                                         </td>
                                     </tr>
@@ -246,13 +246,13 @@ $(function(){
                                             <div class="controls">
                                                 <div data-toggle="distpicker">
                                                 <div class="form-group area">
-                                                    <select class="form-control" id="province1" ng-model="entity.address.provinceId" ng-options="province.provinceid as province.province for province in provincesList"></select>
+                                                    <select class="form-control" id="province1" ng-model="address.provinceId" ng-options="province.provinceid as province.province for province in provincesList"></select>
                                                 </div>
                                                 <div class="form-group area">
-                                                    <select class="form-control" id="city1" ng-model="entity.address.cityId" ng-options="city.cityid as city.city for city in citiesList"></select>
+                                                    <select class="form-control" id="city1" ng-model="address.cityId" ng-options="city.cityid as city.city for city in citiesList"></select>
                                                 </div>
                                                 <div class="form-group area">
-                                                    <select class="form-control" id="district1" ng-model="entity.address.townId" ng-options="area.areaid as area.area for area in areasList"></select>
+                                                    <select class="form-control" id="district1" ng-model="address.townId" ng-options="area.areaid as area.area for area in areasList"></select>
                                                 </div>
                                             </div>
                                             </div>									 

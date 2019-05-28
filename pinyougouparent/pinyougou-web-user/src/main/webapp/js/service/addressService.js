@@ -18,4 +18,8 @@ app.service('addressService',function($http){
     this.add=function(address){
         return  $http.post('../address/add.do',address );
     }
+
+    this.delete=function(id){
+        return  $http.get('../address/delete.do?id='+id);
+    }
 });
