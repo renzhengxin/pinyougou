@@ -11,6 +11,16 @@ public class Address implements Serializable {
      */
     private String userId;
 
+    private String stringAddress;
+
+    public String getStringAddress() {
+        return stringAddress;
+    }
+
+    public void setStringAddress(String stringAddress) {
+        this.stringAddress = stringAddress;
+    }
+
     /**
      * 省
      */
